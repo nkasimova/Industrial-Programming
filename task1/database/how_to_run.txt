@@ -1,0 +1,5 @@
+#Build an image from the Dockerfile assign it a name.
+$ docker build -t teg_name .
+
+#Run the PostgreSQL server container (in the foreground):
+$ docker run --rm -P --name pg_test tag_name

@@ -1,0 +1,32 @@
+version: '3.3'
+services:
+  rabbitmq:
+    image: rabbitmq
+    networks:
+      - backend
+    ports:
+      - "5672:5672"
+  database:
+    build:
+      context: ./database
+      dockerfile: Dockerfile
+    depends_on:
+      - rabbitmq
+    networks:
+      - backend
+    ports:
+      - "5432:5432"
+  consumer:
+    build:
+      context: ./consumer
+      dockerfile: Dockerfile
+    depends_on:
+      - rabbitmq
+      - database
+    links:
+      - rabbitmq
+      - database
+    networks:
+      - backend
+networks:
+  backend:
