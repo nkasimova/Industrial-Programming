@@ -1,0 +1,13 @@
+{% extends "./main.html" %}
+
+{% block title %}Task{% endblock %}
+
+{% block content %}
+        <div>
+            {{ form.errors }}
+            <form action="" method="post">{% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit" value="Создать">
+            </form>
+        </div>
+{% endblock %}

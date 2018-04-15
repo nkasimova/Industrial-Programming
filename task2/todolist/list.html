@@ -1,0 +1,36 @@
+{% extends "./main.html" %}
+{% load static %}
+{% block title %}TODO{% endblock %}
+
+{% block navigation %}
+    <ul class="breadcrumb">
+        <li><a href="{% url "home" %}">Главная</a><span class="divider"></span></li>
+        <li class="active">Блоги</li>
+    </ul>
+{% endblock navigation %}
+
+{% block content %}
+    <div class="container-fluid">
+            <form method="get">
+                <button class="btn btn-primary" formaction="{% url "add" %}">Создать задачу</button>
+            </form>
+    </div>
+    {% for task in object_list %}
+        <div class="container-fluid">
+            <div class="blog-header">
+                <div>
+                    <input type="checkbox" id="task_check{{ task.id }}" onchange="update_task({{ task.id }}, checked)" {% if task.completed %}checked{% else %}unchecked{% endif %}>
+                </div>
+                <h1 class="blog-title">{{ task.text }}</h1>
+                <div class="row lead blog-description">
+                </div>
+            </div>
+            <hr>
+        </div>
+    {% endfor %}
+{% endblock %}
+
+{% block custom_js %}
+    <script type="text/javascript"> window.CSRF_TOKEN = "{{ csrf_token }}"; </script>
+    <script src="{% static 'update.js' %}"></script>
+{% endblock %}
